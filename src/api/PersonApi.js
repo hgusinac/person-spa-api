@@ -2,18 +2,27 @@ import axios from "axios";
 
 
 
-
+const ApiAdress= "https://localhost:44310/api/"
 
 export default function getPeople() {
-    return fetch('https://localhost:44310/api/Api/')
+    return fetch(ApiAdress + "Api/" )
         .then(data => data.json());
 }
 
+export async function getCities() {
+    console.log("api getCities");
+    return fetch( ApiAdress + "Cities/").then((data) => data.json());
+  }
+  
+  export async function getCountries() {
+    console.log("api getCountries");
+    return fetch(ApiAdress + "Countries/").then((data) => data.json());
+  }
 
 export async function getPeopleById(id) {
     try{
 
-         let response = await fetch('https://localhost:44310/api/Api/' + id);
+         let response = await fetch(ApiAdress +"Api/" + id);
     
         let json = await response.json();
 
@@ -29,19 +38,19 @@ export async function createPerson(person){
     try{
 
         let response = await axios.post('https://localhost:44310/api/Api/',{
-            Name : person.Namem,
+            Name : person.Name,  
             Phone: person.Phone,
-            City: person.City,
-            Country: person.Country,
-            Language: person.Language
+            CityId: person.inCityId
+            
         });
-        console.log(response);
+        console.log("Create person",response);
    
-       let json = await response.data();
+       let json = await response.data;
 
        return json;
    }
    catch (e){
+
        console.log("Error", e);
    }
 }

@@ -6,16 +6,25 @@ class PersonCreate extends Component {
 
         const person = {
             Name: event.target["name"].value,
-            Phone: Number(event.target["phone"].value),
-          /*  City: event.target["inCityId"].value,
-            County: event.target["inCity"].value,
-            Language: event.target["personLanguages"].value,*/
+            Phone: event.target["phone"].value,
+            inCityId: Number(event.target["city"].value),
+           
         };
+        console.log(' person to Create', person)
+        
 
         this.props.addPerson(person);
     };
 
     render(){
+        const options = this.props.citiesArray.map((city)=>{
+            return (
+              <option key={city.id} value={city.id}>{city.cityName}</option>
+            )
+            
+    });
+
+
         return(
             <div className="col-md-6">
                 <div className="row">
@@ -24,7 +33,7 @@ class PersonCreate extends Component {
 
                 <form onSubmit={this.createPerson}>
                     <div className ="row mb-2">
-                        <label htmlFor="Name" className="col-2 mt-2"> Name:</label>
+                        <label htmlFor="name" className="col-2 mt-2"> Name:</label>
                         <input 
                         id="name"
                         type="text"
@@ -34,17 +43,15 @@ class PersonCreate extends Component {
                         placeholder="Enter Name" />
                     </div>
                     <div className ="row mb-2">
-                        <label htmlFor="Name" className="col-2 mt-2"> City:</label>
-                        <input 
-                        id="city"
-                        type="text"
-                        required
-                        minLength="2"
-                        className ="form-contorl col-18"
-                        placeholder="Enter City" />
+                        <label htmlFor="city" className="col-2 mt-2"> City:</label>
+                        <select id="city" required   className ="form-contorl col-18">
+                            {options}
+
+
+                        </select>
                     </div>
                     <div className ="row mb-2">
-                        <label htmlFor="Name" className="col-2 mt-2"> Phone:</label>
+                        <label htmlFor="phone" className="col-2 mt-2"> Phone:</label>
                         <input 
                         id="phone"
                         type="number"
@@ -53,6 +60,7 @@ class PersonCreate extends Component {
                         className ="form-contorl col-18"
                         placeholder="Enter Phone" />
                     </div>
+                 
 
                     <div className="row d-flex justify-content-center">
                         <input 

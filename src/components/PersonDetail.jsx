@@ -6,18 +6,21 @@ const PersonDetails = (props)=>{
       if(props.person.inCity != null){
           
           if(props.person.inCity.Country !=null){
-              countryName = props.person.inCity.Country.CountryName;
+              countryName = props.person.inCityid.inCity.Country.CountryName;
           }
       }
 
       let languageNames = 'No Language';
-      if(props.person.personLanguages.length > 0){
-         languageNames = props.person.personLanguages.map((pl)=>{
-            return (
-                <p key={pl.LanguageId}>{pl.language.name}</p>
-            );
-          });
+      if(props.person.personLanguages !=null){
 
+          if(props.person.personLanguages.length > 0){
+             languageNames = props.person.personLanguages.map((pl)=>{
+                return (
+                    <p key={pl.LanguageId}>{pl.language.name}</p>
+                );
+              });
+    
+          }
       }
 
 

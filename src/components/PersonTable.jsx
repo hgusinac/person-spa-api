@@ -1,4 +1,5 @@
 import React from "react";
+import PersonDetails from "./PersonDetail";
 
 const PersonTable = (props) => {
     const rows = props.persons.map((person)=>{
@@ -7,6 +8,8 @@ const PersonTable = (props) => {
                 <td>{person.name}</td>
                 <td>{person.phone}</td>
                 <td>{person.inCityId}</td>
+               
+            
                 
                 <td>
                 <button 
@@ -19,7 +22,7 @@ const PersonTable = (props) => {
             </tr>
         );
       });
-      
+
 
       return (
           <div className="col-md-6 middle-bar">
@@ -29,6 +32,8 @@ const PersonTable = (props) => {
                           <th>Name</th>
                           <th>Phone</th>
                           <th>City</th>
+                         
+                          
                           <th>Action</th>
                           
                       </tr>

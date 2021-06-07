@@ -4,7 +4,7 @@ import Footer from  "./Footer";
 
 import PersonTable from "./PersonTable";
 import PersonDetails from "./PersonDetail";
-import getPeople, {deletePerson, getPeopleById, createPerson } from "../api/PersonApi";
+import getPeople, {deletePerson, getPeopleById, createPerson ,getCities , getCountries} from "../api/PersonApi";
 import PersonCreate from "./PersonCreate";
 
 
@@ -16,13 +16,25 @@ class App extends Component {
     state = {
       detailsPerson: null,
       createPerson: false,
-      personList: []
+      personList: [],
+      cityList: [],
+      countryList: []
     };
     componentDidMount() {
         const _this = this;
         getPeople().then((people) => {
           _this.setState({ personList: people });
         });
+
+        getCities().then((cities) => {
+          _this.setState({ cityList: cities });
+        });
+
+        getCountries().then((countries) =>{
+          _this.setState({countryList: countries})
+        });
+
+
       }
      findPerson = async(id) =>{
         return await getPeopleById(id);
@@ -47,15 +59,17 @@ class App extends Component {
 
       DeletePersonHandler =(id) =>{
         const person = this.findPerson(id);
+        console.log('deleteid', id)
         if (person != null ){
           if (deletePerson(id)){
             const persons= this.state.personList;
-            persons.forEach((element) => {
-              if(element.id ===id){
 
-                persons.pop(element);
+            for (let index =0; index < persons.length; index++){
+              if( persons[index].id ===id){
+                persons.splice(index,1)
               }
-            });
+            }
+           
             this.setState({
               personList: persons,
               detailsPerson: null,
@@ -72,8 +86,10 @@ class App extends Component {
 
       addPerson = async (person) =>{
         const personList = this.state.personList;
+
         person = await createPerson(person);
-        console.log(person);
+
+        console.log('Add person',person);
 
         if(person !== undefined){
           personList.push(person);
@@ -102,10 +118,10 @@ render() {
     <PersonDetails
     person={this.state.detailsPerson}
     closeDetails={this.closeDetails}
-    deletePerson={this.deletePerson}
+    deletePerson={this.DeletePersonHandler}
     />
   ) : this.state.createPerson ?(
-    <PersonCreate addPerson ={this.addPerson} closeCreate={this.closeCreate}/>
+    <PersonCreate addPerson ={this.addPerson} closeCreate={this.closeCreate} citiesArray={this.state.cityList}/>
   ) : (
     <div className="col-md-6">
       <button onClick={this.showCreatePerson} className="btn btn-success">
@@ -122,10 +138,12 @@ render() {
           <h3>People SPA</h3>
           <hr />
           <div className="row">
+            
             <PersonTable persons ={this.state.personList} showPerson={this.showPerson} />
-            {sideElement}
+            {sideElement} 
           </div>
         </div>
+        
         <Footer />
       </React.Fragment>
     );
