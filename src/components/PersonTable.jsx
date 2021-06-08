@@ -7,7 +7,7 @@ const PersonTable = (props) => {
             <tr key={person.id}>
                 <td>{person.name}</td>
                 <td>{person.phone}</td>
-                <td>{person.inCityId}</td>
+                <td>{person.inCity.cityName}</td>
                
             
                 

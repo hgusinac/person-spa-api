@@ -17,11 +17,16 @@ class PersonCreate extends Component {
     };
 
     render(){
-        const options = this.props.citiesArray.map((city)=>{
+        const optionsCity = this.props.citiesArray.map((city)=>{
             return (
               <option key={city.id} value={city.id}>{city.cityName}</option>
             )
-            
+
+    });
+    const optionsCountry = this.props.countryArray.map((country)=>{
+        return (
+          <option key={country.id} value={country.id}>{country.countryName}</option>
+        )
     });
 
 
@@ -43,9 +48,17 @@ class PersonCreate extends Component {
                         placeholder="Enter Name" />
                     </div>
                     <div className ="row mb-2">
+                        <label htmlFor="country" className="col-2 mt-2"> Country:</label>
+                        <select id="country" required   className ="form-contorl col-18">
+                            {optionsCountry}
+
+
+                        </select>
+                    </div>
+                    <div className ="row mb-2">
                         <label htmlFor="city" className="col-2 mt-2"> City:</label>
                         <select id="city" required   className ="form-contorl col-18">
-                            {options}
+                            {optionsCity}
 
 
                         </select>

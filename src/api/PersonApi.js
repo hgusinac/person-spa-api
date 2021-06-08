@@ -5,7 +5,7 @@ import axios from "axios";
 const ApiAdress= "https://localhost:44310/api/"
 
 export default function getPeople() {
-    return fetch(ApiAdress + "Api/" )
+    return fetch("https://localhost:44310/api/Api" )
         .then(data => data.json());
 }
 
@@ -40,7 +40,8 @@ export async function createPerson(person){
         let response = await axios.post('https://localhost:44310/api/Api/',{
             Name : person.Name,  
             Phone: person.Phone,
-            CityId: person.inCityId
+            CityId: person.inCityId,
+            CountryId: person.countryName
             
         });
         console.log("Create person",response);

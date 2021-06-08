@@ -2,13 +2,19 @@ import React from "react";
 
 const PersonDetails = (props)=>{
     
+    console.log("props person inCity",props.person.inCity)
       let countryName = 'No Country';
       if(props.person.inCity != null){
           
-          if(props.person.inCity.Country !=null){
-              countryName = props.person.inCityid.inCity.Country.CountryName;
+          if(props.person.inCity.Country != null){
+              countryName = props.person.inCityId.inCity.Country.countryName.map((c) =>{
+                  return (
+                      <p key={c.id}>{c.countryName}</p>
+                  );
+              })
           }
       }
+      
 
       let languageNames = 'No Language';
       if(props.person.personLanguages !=null){

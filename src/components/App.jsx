@@ -107,6 +107,17 @@ class App extends Component {
         });
       };
 
+      sortPersonTable =() =>{
+        const sortList = this.state.personList;
+
+        sortList.sort((a, b) => (a.name > b.name ? 1 : -1));
+       
+
+        this.setState({
+          personList: sortList,
+        });
+      };
+
 
      
 
@@ -121,14 +132,18 @@ render() {
     deletePerson={this.DeletePersonHandler}
     />
   ) : this.state.createPerson ?(
-    <PersonCreate addPerson ={this.addPerson} closeCreate={this.closeCreate} citiesArray={this.state.cityList}/>
+    <PersonCreate addPerson ={this.addPerson} closeCreate={this.closeCreate} citiesArray={this.state.cityList} countryArray={this.state.countryList}/>
   ) : (
     <div className="col-md-6">
       <button onClick={this.showCreatePerson} className="btn btn-success">
         Add Person
       </button>
+
+      <button onClick={this.sortPersonTable} className="btn btn-secondary">Sort</button>
+      
       <p>Click on Details to see more info</p>
     </div>
+
   );
 
     return (
